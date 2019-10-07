@@ -13,8 +13,10 @@ import ru.drsdgdby.springdatatest.services.ProductService;
 
 import javax.annotation.PostConstruct;
 
+//TODO подумать, как избавиться от дефолтных значений в @requestparam
+
 @Controller
-@RequestMapping(value = "/products")
+@RequestMapping(value = "/products", method = RequestMethod.GET)
 public class ProductController {
     @Getter
     private Product addProduct;
@@ -28,10 +30,10 @@ public class ProductController {
 
     @GetMapping("/")
     public String showAllRangedProducts(Model model,
-                                        @RequestParam(value = "page", defaultValue = "1") Integer page,
-                                        @RequestParam(value = "min", defaultValue = "0") Integer min,
-                                        @RequestParam(value = "max", defaultValue = "1000") Integer max,
-                                        @RequestParam(value = "size", defaultValue = "5") Integer size) {
+                                        @RequestParam(value = "page", defaultValue = "1") int page,
+                                        @RequestParam(value = "min", defaultValue = "0") int min,
+                                        @RequestParam(value = "max", defaultValue = "1000") int max,
+                                        @RequestParam(value = "size", defaultValue = "5") int size) {
 
         val productPage = productService
                 .getAllPaginatedRangedProducts(PageRequest.of(page - 1, size), min, max);
@@ -43,11 +45,9 @@ public class ProductController {
         return "products";
     }
 
-    //TODO add edit product realization
-
     @PostMapping("/add")
     public String addProduct(@ModelAttribute(name = "addProduct") Product product) {
         productService.saveOrUpdateProduct(product);
-        return "redirect:/products";
+        return "redirect:/products/";
     }
 }

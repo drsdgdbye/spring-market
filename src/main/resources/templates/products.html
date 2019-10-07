@@ -38,19 +38,19 @@
         <ul class="pagination">
             <li class="page-item" th:classappend="${products.getNumber() == 0 ? 'disabled' : ''}">
                 <a th:class="page-link"
-                   th:href="@{/products(size=${size}, page=${products.getNumber()}, min=${min}, max=${max})}">Previous</a>
+                   th:href="@{/products/(size=${size}, page=${products.getNumber()}, min=${min}, max=${max})}">Previous</a>
             </li>
 
             <li class="page-item" th:classappend="${products.getNumber() + 1 == i ? 'active' : ''}"
                 th:each="i : ${#numbers.sequence(1, products.getTotalPages())}">
-                <a th:class="page-link" th:href="@{/products(size=${size}, page=${i}, min=${min}, max=${max})}"
+                <a th:class="page-link" th:href="@{/products/(size=${size}, page=${i}, min=${min}, max=${max})}"
                    th:text="${i}"></a>
             </li>
 
             <li class="page-item"
                 th:classappend="${products.getNumber() == products.getTotalPages() - 1 ? 'disabled' : ''}">
                 <a th:class="page-link"
-                   th:href="@{/products(size=${size}, page=${products.getNumber() + 2}, min=${min}, max=${max})}">Next</a>
+                   th:href="@{/products/(size=${size}, page=${products.getNumber() + 2}, min=${min}, max=${max})}">Next</a>
             </li>
         </ul>
     </nav>
@@ -71,11 +71,11 @@
     </table>
     <br>
     <div>
-        <form method="post" th:action="@{/add}" th:object="${addProduct}">
+        <form method="post" th:action="@{add}" th:object="${addProduct}">
             <label>title</label>
             <input placeholder="input title..." th:field="*{title}" type="text"/>
             <label>price</label>
-            <input placeholder="input price..." th:field="*{cost}" type="number">
+            <input placeholder="input price..." th:field="*{cost}" type="text">
             <button class="btn btn-primary" type="submit">Add</button>
         </form>
     </div>

@@ -13,8 +13,6 @@ import java.util.Optional;
 @Repository
 public interface ProductRepository extends PagingAndSortingRepository<Product, Double>, JpaSpecificationExecutor<Product> {
     Page<Product> findAll(Specification<Product> specification, Pageable pageable);
-
     Optional<Product> findById(Integer id);
-
     Optional<Product> deleteById(Integer id);
 }

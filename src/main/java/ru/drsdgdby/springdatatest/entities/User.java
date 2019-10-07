@@ -19,6 +19,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @NonNull
+    @Column(name = "email")
+    @Email
     private String username;
     @NonNull
     private String password;
@@ -26,13 +28,13 @@ public class User {
     private String firstName;
     @Column(name = "lastname")
     private String lastName;
-    @Email
-    @NonNull
-    private String email;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles;
+
+    @OneToMany(mappedBy = "user")
+    private List<Orders> orders;
 }

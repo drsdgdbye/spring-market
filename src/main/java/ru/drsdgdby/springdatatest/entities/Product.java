@@ -23,4 +23,7 @@ public class Product {
     @Column(name = "price")
     @PositiveOrZero(message = "price should not be less than 0")
     private Double cost;
+
+    @OneToOne(mappedBy = "product")
+    private OrderItem orderItem;
 }

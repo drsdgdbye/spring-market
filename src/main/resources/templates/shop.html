@@ -24,7 +24,7 @@
     <br>
     <h2>Shop:</h2>
     <div class="form">
-        <form th:action="@{/shop}">
+        <form th:action="@{/shop/}">
             <input th:name="min" type="number"/>
             <input th:name="max" type="number"/>
             <select th:name="size">
@@ -38,19 +38,19 @@
         <ul class="pagination">
             <li class="page-item" th:classappend="${products.getNumber() == 0 ? 'disabled' : ''}">
                 <a th:class="page-link"
-                   th:href="@{/shop(size=${size}, page=${products.getNumber()}, min=${min}, max=${max})}">Previous</a>
+                   th:href="@{/shop/(size=${size}, page=${products.getNumber()}, min=${min}, max=${max})}">Previous</a>
             </li>
 
             <li class="page-item" th:classappend="${products.getNumber() + 1 == i ? 'active' : ''}"
                 th:each="i : ${#numbers.sequence(1, products.getTotalPages())}">
-                <a th:class="page-link" th:href="@{/shop(size=${size}, page=${i}, min=${min}, max=${max})}"
+                <a th:class="page-link" th:href="@{/shop/(size=${size}, page=${i}, min=${min}, max=${max})}"
                    th:text="${i}"></a>
             </li>
 
             <li class="page-item"
                 th:classappend="${products.getNumber() == products.getTotalPages() - 1 ? 'disabled' : ''}">
                 <a th:class="page-link"
-                   th:href="@{/shop(size=${size}, page=${products.getNumber() + 2}, min=${min}, max=${max})}">Next</a>
+                   th:href="@{/shop/(size=${size}, page=${products.getNumber() + 2}, min=${min}, max=${max})}">Next</a>
             </li>
         </ul>
     </nav>
@@ -60,6 +60,7 @@
         <tr>
             <th>title</th>
             <th>cost</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -67,7 +68,7 @@
             <td th:text="${product.title}"></td>
             <td th:text="${product.cost}"></td>
             <td>
-                <a class="btn btn-primary" th:href="@{'add?id=' + ${product.id}}">Add to Card</a>
+                <a class="btn btn-primary" th:href="@{'add?id=' + ${product.id}}">Add to Cart</a>
             </td>
         </tr>
         </tbody>
